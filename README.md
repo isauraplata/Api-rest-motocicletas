@@ -29,7 +29,6 @@ Este proyecto es una API REST desarrollada con **FastAPI** para gestionar un sis
 ### 1\. Clonar el repositorio
 
     git clone https://github.com/isauraplata/Api-rest-motocicletas.git
-    cd src
     
 
 ### 2\. Crear y activar entorno virtual
@@ -69,8 +68,12 @@ Crea un archivo `.env` en la raíz del proyecto, reemplaza con tus credenciales:
     
 
 ### 5\. Iniciar el servidor de desarrollo
+Debes entrar al directorio src, y al levantar la API con el siguiente comando, se crearán automáticamente las tablas en la base de datos
 
-    uvicorn main:app --reload
+```bash
+cd src/
+uvicorn main:app --reload
+```
     
 
 ### 6\. La documentación de la API REST, generada con Swagger UI, está disponible en:
