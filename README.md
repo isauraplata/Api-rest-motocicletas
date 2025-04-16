@@ -1,7 +1,7 @@
 🛠️ Motorcycle Workshop API - FastAPI Backend
 =============================================
 
-Este proyecto es una API RESTful desarrollada con **FastAPI** para gestionar un sistema de taller mecánico de motocicletas. Está diseñada para interactuar con un sistema frontend y proporciona operaciones completas sobre clientes, motocicletas y órdenes de servicio.
+Este proyecto es una API REST desarrollada con **FastAPI** para gestionar un sistema de taller mecánico de motocicletas. Está diseñada para interactuar con un sistema frontend y proporciona operaciones completas sobre clientes, motocicletas y órdenes de servicio.
 
 * * *
 
@@ -29,7 +29,7 @@ Este proyecto es una API RESTful desarrollada con **FastAPI** para gestionar un 
 ### 1\. Clonar el repositorio
 
     git clone https://github.com/isauraplata/Api-rest-motocicletas.git
-    cd api-motocicletas
+    cd src
     
 
 ### 2\. Crear y activar entorno virtual
@@ -50,7 +50,7 @@ Este proyecto es una API RESTful desarrollada con **FastAPI** para gestionar un 
 
 ### 4\. Configurar variables de entorno
 
-Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+Crea un archivo `.env` en la raíz del proyecto, reemplaza con tus credenciales:
 
     # Database configuration
     DATABASE_URL=mysql+pymysql://user:password@localhost:3306/taller_motociclista
@@ -70,9 +70,9 @@ Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 
 ### 5\. Iniciar el servidor de desarrollo
 
-    uvicorn app.main:app --reload
+    uvicorn main:app --reload
     
 
-La documentación de la API REST, generada con Swagger UI, está disponible en:
+### 6\. La documentación de la API REST, generada con Swagger UI, está disponible en:
 
     http://localhost:8000/api/v1/docs
