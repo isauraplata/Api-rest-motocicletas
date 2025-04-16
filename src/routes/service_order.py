@@ -4,7 +4,7 @@ from typing import List
 
 from database.session import get_db
 from controllers.service_order import ServiceOrderController
-from schemas.service_order import ServiceOrderCreate, ServiceOrderResponse
+from schemas.service_order import ServiceOrderCreate, ServiceOrderResponse, ServiceOrderUpdate
 
 router = APIRouter()
 
@@ -24,9 +24,9 @@ def get_service_orders(skip: int = 0, limit: int = 100, db: Session = Depends(ge
 def get_service_orders_by_motorcycle(motorcycle_id: int, db: Session = Depends(get_db)):
     return ServiceOrderController.get_service_orders_by_motorcycle(db, motorcycle_id)
 
-@router.put("/{order_id}/status", response_model=ServiceOrderResponse)
-def update_service_order_status(order_id: int, status: str, db: Session = Depends(get_db)):
-    return ServiceOrderController.update_service_order_status(db, order_id, status)
+@router.put("/{order_id}", response_model=ServiceOrderResponse)
+def update_service_order(order_id: int, service_order: ServiceOrderUpdate, db: Session = Depends(get_db)):
+    return ServiceOrderController.update_service_order(db, order_id, service_order)
 
 @router.delete("/{order_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_service_order(order_id: int, db: Session = Depends(get_db)):

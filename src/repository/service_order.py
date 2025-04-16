@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from models.service_order import ServiceOrder, OrderService
-from schemas.service_order import ServiceOrderCreate
+from schemas.service_order import ServiceOrderCreate, ServiceOrderUpdate
 from config.settings import settings
 
 class ServiceOrderRepository:
@@ -53,12 +53,51 @@ class ServiceOrderRepository:
         ).all()
     
     @staticmethod
-    def update_status(db: Session, order_id: int, new_status: str):
+    def update(db: Session, order_id: int, order_update: ServiceOrderUpdate):
         db_order = ServiceOrderRepository.get_by_id(db, order_id)
-        if db_order:
-            db_order.status = new_status
-            db.commit()
-            db.refresh(db_order)
+        if not db_order:
+            return None
+            
+        # Update order fields if provided
+        if order_update.diagnosis is not None:
+            db_order.diagnosis = order_update.diagnosis
+            
+        if order_update.mileage is not None:
+            db_order.mileage = order_update.mileage
+            
+        if order_update.status is not None:
+            db_order.status = order_update.status
+            
+        if order_update.motorcycle_id is not None:
+            db_order.motorcycle_id = order_update.motorcycle_id
+            
+        # If services are being updated
+        if order_update.services is not None:
+            # Remove existing services
+            for service in db_order.services:
+                db.delete(service)
+                
+            # Calculate new financial values
+            subtotal = sum(service.price for service in order_update.services)
+            tax = subtotal * settings.TAX_RATE
+            total = subtotal + tax
+            
+            # Update financial fields
+            db_order.subtotal = subtotal
+            db_order.tax = tax
+            db_order.total = total
+            
+            # Add new services
+            for service in order_update.services:
+                db_service = OrderService(
+                    service_order_id=db_order.id,
+                    name=service.name,
+                    price=service.price
+                )
+                db.add(db_service)
+        
+        db.commit()
+        db.refresh(db_order)
         return db_order
     
     @staticmethod
@@ -69,3 +108,5 @@ class ServiceOrderRepository:
             db.commit()
             return True
         return False
+    
+    

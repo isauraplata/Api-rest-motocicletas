@@ -36,3 +36,10 @@ class ServiceOrderResponse(ServiceOrderBase):
     
     class Config:
         orm_mode = True
+        
+class ServiceOrderUpdate(BaseModel):
+    diagnosis: Optional[str] = None
+    mileage: Optional[int] = None
+    status: Optional[str] = None
+    motorcycle_id: Optional[int] = None
+    services: Optional[List[ServiceBase]] = None
