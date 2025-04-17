@@ -16,10 +16,6 @@ Este proyecto es una API REST desarrollada con **FastAPI** para gestionar un sis
     *   Captura de diagnóstico
     *   Registro de kilometraje
     *   Lista de servicios realizados (nombre y precio)
-    *   Cálculo automático de:
-        *   Subtotal
-        *   IVA (16%)
-        *   Total
 
 * * *
 
